@@ -9,7 +9,6 @@ export const useMovies = () => {
     
     const getMovies = async () =>{
         const resp = await movieDB.get<MovieDBNow>('/now_playing');
-        
         setpeliculasCine(resp.data.results);
         setIsLoading(false);
     }
