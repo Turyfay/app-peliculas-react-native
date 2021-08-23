@@ -1,25 +1,39 @@
+
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet,TouchableOpacity, View } from 'react-native'
 import { Movie } from '../interfaces/movieInterface';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
+import { RootStackParams } from '../navigation/navigation';
 
-
-interface Props {
+ interface Props {
     movie: Movie;
     width?: number;
     height?: number;
-}
+} 
 
+
+
+type HomeScreenNavigationProps = StackNavigationProp<RootStackParams,'HomeScreen'>
 
 export const MovieCard = ({ movie,height = 420,width = 300 }: Props) => {
 
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const navegacion = useNavigation<HomeScreenNavigationProps>()
 
     return (
-        <View
+        <TouchableOpacity
+            onPress={()=> {
+                navegacion.navigate('DetailScreen',movie);
+                
+            }}
+            activeOpacity={0.8}
             style={{
                 height,
                 width,
-                marginHorizontal:8
+                marginHorizontal:2,
+                paddingBottom: 20,
+                paddingHorizontal:7
             }}
         >   
         <View
@@ -33,7 +47,7 @@ export const MovieCard = ({ movie,height = 420,width = 300 }: Props) => {
                 />
             </View>
 
-        </View>
+        </TouchableOpacity>
     )
 }
 

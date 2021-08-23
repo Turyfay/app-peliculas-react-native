@@ -1,3 +1,4 @@
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react'
 import { ActivityIndicator, StyleSheet, Text, View,ScrollView, Dimensions  } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,10 +9,14 @@ import { useMovies } from '../hooks/useMovies';
 
 
 const windowWidth = Dimensions.get('window').width;
+//Interface
+interface Props extends StackScreenProps<any, any> { };
 
-export const HomeScreen = () => {
 
-    const {peliculasCine,isLoading} = useMovies();
+
+export const HomeScreen = ({navigation}:Props) => {
+
+    const {nowPlaying,popular,topRated,upcoming,isLoading} = useMovies();
     const {top} = useSafeAreaInsets();
     
     if(isLoading){
@@ -32,8 +37,8 @@ export const HomeScreen = () => {
                     style={{height:440}}
                 >
                     <Carousel
-                        data = {peliculasCine}
-                        renderItem= {({item}:any)=>( <MovieCard movie={item} /> )}
+                        data = {nowPlaying}
+                        renderItem= {({item}:any)=>( <MovieCard movie={item}  /> )}
                         sliderWidth={windowWidth}
                         itemWidth={300}
                         inactiveSlideOpacity={0.9}
@@ -42,8 +47,9 @@ export const HomeScreen = () => {
 
 
                 {/* Pelicula populares */}
-                <HorizontalSlider title='En cine' movies={peliculasCine} />
-                <HorizontalSlider  movies={peliculasCine} />
+                <HorizontalSlider title='Popular' movies={popular} />
+                <HorizontalSlider title='Top Rated' movies={topRated} />
+                <HorizontalSlider title='upcoming' movies={upcoming} />
             
             </View>
         </ScrollView>
