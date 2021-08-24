@@ -37,7 +37,7 @@ export const DetailScreen = ({ route }: Props) => {
                         ? <ActivityIndicator size={35} color='grey' style={{marginTop:10}} />
                         :<MovieDetails movieFull={movieFull!} cast={cast} />
                     }       
-           
+            
         </ScrollView>
 
     )
